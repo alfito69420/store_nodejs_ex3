@@ -9,6 +9,7 @@ const jwt = require('jsonwebtoken');
     //permissionsProperty: 'scope'
   })*/
 //, guard.check('user:read')
+
 router.get(`/`, async (req, res) =>{
     const userList = await User.find().select('-passwordHash');
 
@@ -134,7 +135,7 @@ router.post('/register', async (req,res)=>{
 })
 
 
-router.delete('/:id', (req, res)=>{
+/* router.delete('/:id', (req, res)=>{
     User.findByIdAndRemove(req.params.id).then(user =>{
         if(user) {
             return res.status(200).json({success: true, message: 'the user is deleted!'})
@@ -143,6 +144,19 @@ router.delete('/:id', (req, res)=>{
         }
     }).catch(err=>{
        return res.status(500).json({success: false, error: err}) 
+    })
+}) */
+
+
+router.delete('/:id', async (req, res) => {
+    User.findByIdAndDelete(req.params.id).then(user => {
+        if (user) {
+            return res.status(200).json({ success: true, message: 'the user is deleted!' })
+        } else {
+            return res.status(404).json({ success: false, message: "user not found!" })
+        }
+    }).catch(err => {
+        return res.status(500).json({ success: false, error: err})
     })
 })
 
