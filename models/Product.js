@@ -16,9 +16,9 @@ const productSchema = mongoose.Schema({
     category: {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'Category',
-                require: false
+                required: false
     }
-}, { collection: 'products' } )
+}, { collection: 'product' } )
 
 const Product = mongoose.model('Product', productSchema)
 
